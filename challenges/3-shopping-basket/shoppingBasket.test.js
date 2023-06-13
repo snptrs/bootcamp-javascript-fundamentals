@@ -16,4 +16,14 @@ describe("mocking tests", () => {
     new_basket.addItem(CandyDouble2);
     expect(new_basket.getTotalPrice()).toBe(20);
   });
+
+  it("gets the discounted price for two mocked candies", () => {
+    const CandyDouble = { getName: () => "fake", getPrice: () => 10.0 };
+    const CandyDouble2 = { getName: () => "fake2", getPrice: () => 10.0 };
+    const new_basket = new ShoppingBasket();
+    new_basket.addItem(CandyDouble);
+    new_basket.addItem(CandyDouble2);
+    new_basket.applyDiscount(6);
+    expect(new_basket.getTotalPrice()).toBe(14);
+  });
 });

@@ -1,11 +1,20 @@
 class ShoppingBasket {
   constructor() {
     this.basket = [];
+    this.discount = 0;
+  }
+
+  applyDiscount(discount) {
+    this.discount = discount;
   }
 
   getTotalPrice() {
-    const prices = this.basket.map((candy) => candy.getPrice());
-    return prices.reduce((total, price) => total + price, 0);
+    let totalPrice = 0;
+    this.basket.forEach((candy) => {
+      totalPrice += candy.getPrice();
+    });
+
+    return totalPrice - this.discount;
   }
 
   addItem(candy) {
