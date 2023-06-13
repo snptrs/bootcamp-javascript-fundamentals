@@ -1,3 +1,9 @@
+const sum = (prices) => {
+  return prices.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  );
+};
+
 class ShoppingBasket {
   constructor() {
     this.basket = [];
@@ -10,12 +16,7 @@ class ShoppingBasket {
   getTotalPrice() {
     const prices = this.basket.map((item) => item.getPrice());
 
-    const initialValue = 0;
-    const sumWithInitial = prices.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      initialValue
-    );
-    return sumWithInitial;
+    return sum(prices);
   }
 }
 
