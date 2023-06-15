@@ -1,8 +1,13 @@
-const WeatherData = require("./index");
-const client = new WeatherData();
+const WeatherClient = require("./weather-client");
+const Weather = require("./weather");
+const client = new WeatherClient();
+const weather = new Weather(client);
 
-client.fetchWeatherData("London").then((weatherData) => {
+weather.load("London").then((weatherData) => {
   console.log(`Weather data for ${weatherData.name}`);
   console.log(weatherData.main.temp);
 });
-1;
+
+weather.compareWith("Dublin").then((response) => {
+  console.log(response);
+});
