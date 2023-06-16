@@ -6,20 +6,23 @@ const rl = readline.createInterface({
 });
 
 const WeatherClient = require("./weather-client");
-const Weather = require("./weather");
 const client = new WeatherClient();
-const weather = new Weather(client);
+const weatherClasses = require("./weather");
+const weather = new weatherClasses.Weather(client);
+const weatherUI = new weatherClasses.WeatherUI();
 
 rl.question("What city do you want to see the weather for? ", (city) => {
   weather
     .load(city)
-    .then((weatherData) => {
-      weather.displayWeather();
+    .then(() => {
+      weatherUI.displayWeather(weather.getWeatherData());
     })
     .then(() => {
       rl.question("Compare weather with: ", (compareCity) => {
         weather.compareWith(compareCity).then((response) => {
-          return console.log(response);
+          console.log(response);
+          rl.close();
+          return;
         });
       });
     });
