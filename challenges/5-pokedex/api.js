@@ -20,7 +20,7 @@ class Pokedex {
   };
 
   catch(name) {
-    this.fetchPokemon(name).then((pokemon) => this.pokedex.push(pokemon));
+    return this.fetchPokemon(name).then((pokemon) => this.pokedex.push(pokemon));
   }
 
   all() {

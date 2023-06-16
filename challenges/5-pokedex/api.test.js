@@ -22,4 +22,12 @@ describe("Pokedex", () => {
       expect(pokemon.weight).toEqual(40);
     });
   });
+
+  it("Can fetch the height for Ditto", (done) => {
+    const pokedex = new Pokedex();
+    pokedex.catch('ditto').then((result) => {
+      expect(pokedex.all()[0].name).toContain('ditto');
+    });
+    done();
+  });
 });
