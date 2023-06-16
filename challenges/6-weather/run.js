@@ -3,11 +3,15 @@ const Weather = require("./weather");
 const client = new WeatherClient();
 const weather = new Weather(client);
 
+// weather.load("London").then((weatherData) => {
+//   console.log(`Weather data for ${weatherData.name}`);
+//   console.log(weatherData.main.temp);
+// });
+
 weather.load("London").then((weatherData) => {
-  console.log(`Weather data for ${weatherData.name}`);
-  console.log(weatherData.main.temp);
+  weather.displayWeather();
 });
 
-weather.compareWith("Dublin").then((response) => {
+weather.compareWith("Paris").then((response) => {
   console.log(response);
 });
