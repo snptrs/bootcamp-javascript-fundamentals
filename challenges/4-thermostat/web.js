@@ -14,5 +14,15 @@ app.post("/up", (req, res) => {
   res.send(`${thermostat.getTemperature()}`);
 });
 
+app.post("/down", (req, res) => {
+  thermostat.down();
+  res.send(`${thermostat.getTemperature()}`);
+});
+
+app.delete("/delete", (req, res) => {
+  thermostat.reset();
+  res.send(`${thermostat.getTemperature()}`);
+});
+
 console.log(`Server listening on localhost:${port}`);
 app.listen(port);
