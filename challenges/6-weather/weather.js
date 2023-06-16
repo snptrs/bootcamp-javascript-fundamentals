@@ -14,6 +14,12 @@ class Weather {
     return this.weatherData;
   }
 
+  refresh(weatherUI, weather, cityName) {
+    weather.load(cityName).then((weatherData) => {
+      weatherUI.displayWeather(weatherData);
+    });
+  }
+
   compareWith(city) {
     return this.client.fetchWeatherData(city).then((newCityData) => {
       if (this.weatherData.main.temp > newCityData.main.temp) {
@@ -32,6 +38,7 @@ class WeatherUI {
     console.log(`Temperature:  ${weatherData.main.temp}`);
     console.log(`Feels like:   ${weatherData.main.feels_like}`);
     console.log(`Humidity:     ${weatherData.main.humidity}`);
+    console.log("\n");
   }
 }
 

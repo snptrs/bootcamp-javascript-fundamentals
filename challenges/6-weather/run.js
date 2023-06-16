@@ -11,19 +11,11 @@ const weatherClasses = require("./weather");
 const weather = new weatherClasses.Weather(client);
 const weatherUI = new weatherClasses.WeatherUI();
 
+const reloadData = () => {};
+
 rl.question("What city do you want to see the weather for? ", (city) => {
-  weather
-    .load(city)
-    .then(() => {
-      weatherUI.displayWeather(weather.getWeatherData());
-    })
-    .then(() => {
-      rl.question("Compare weather with: ", (compareCity) => {
-        weather.compareWith(compareCity).then((response) => {
-          console.log(response);
-          rl.close();
-          return;
-        });
-      });
-    });
+  weather.load(city).then((weatherData) => {
+    weatherUI.displayWeather(weather.getWeatherData());
+    setInterval(weather.refresh, 5000, weatherUI, weather, weatherData.name);
+  });
 });
