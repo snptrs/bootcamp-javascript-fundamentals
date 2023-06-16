@@ -33,12 +33,31 @@ describe("Weather", () => {
     mockClient.fetchWeatherData.mockResolvedValueOnce({
       name: "Dublin",
       main: {
-        temp: 25,
+        temp: 24,
       },
     });
 
     weather.compareWith("Dublin").then((response) => {
       expect(response).toEqual("London is warmer than Dublin");
+    });
+  });
+
+  it("displays the weather data using .displayWeather", () => {
+    mockClient.fetchWeatherData.mockResolvedValueOnce({
+      name: "Brighton",
+      main: {
+        temp: 24,
+        feels_like: 26,
+        humidity: 57,
+      },
+      weather: [{ main: "Sunny" }],
+    });
+
+    const weather = new Weather(mockClient);
+    // TODO: not actually testing the console output here
+    weather.load("Brighton").then(() => {
+      expect(weather.getWeatherData().name).toEqual("Brighton");
+      expect(weather.getWeatherData().main.temp).toEqual(24);
     });
   });
 });

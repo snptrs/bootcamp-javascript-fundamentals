@@ -1,17 +1,26 @@
+const readline = require("node:readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: "> ",
+});
+
 const WeatherClient = require("./weather-client");
 const Weather = require("./weather");
 const client = new WeatherClient();
 const weather = new Weather(client);
 
-// weather.load("London").then((weatherData) => {
-//   console.log(`Weather data for ${weatherData.name}`);
-//   console.log(weatherData.main.temp);
-// });
-
-weather.load("London").then((weatherData) => {
-  weather.displayWeather();
-});
-
-weather.compareWith("Paris").then((response) => {
-  console.log(response);
+rl.question("What city do you want to see the weather for? ", (city) => {
+  weather
+    .load(city)
+    .then((weatherData) => {
+      weather.displayWeather();
+    })
+    .then(() => {
+      rl.question("Compare weather with: ", (compareCity) => {
+        weather.compareWith(compareCity).then((response) => {
+          return console.log(response);
+        });
+      });
+    });
 });
